@@ -11,7 +11,7 @@ function get_current_temp (on_temp)
     ow.setup(pinOw)
 
     -- set maximum resolution
-    if ow.reset(pinOw) then
+    if ow.reset(pinOw) == 0 then
         on_temp(nil)
         return
     end

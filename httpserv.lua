@@ -1,5 +1,6 @@
 
 function restart_http_server()
+    print("starting http server")
     if srv then
         srv:close()
     end
@@ -19,27 +20,21 @@ function restart_http_server()
 
             local buf = ""
             if post then
-                local newtemp_str = post_table["temp"];
-                local newtemp = tonumber(newtemp_str)
-                if newtemp then
-                    target_temp = temp
-                    save_target_temp(temp)
-                end
-                print("newtemp: " .. tostring(newtemp))
+                local newtemp = tonumber(post_table["temp"])
+                target_temp = newtemp
+                save_target_temp(newtemp)
                 buf = "HTTP/1.1 302 Found\nLocation: /"
             else
                 buf = '' ..
                     '<h1>Ferm chamber control</h1>' ..
-                    '<h2>Current temp</h2>' ..
-                    string.format('%d C', current_temp)  ..
-                    '<h2>Target temp</h2>' ..
-                    string.format('%d °C', target_temp) ..
+                    string.format('<h2>Current temp: %s C</h2>', tostring(current_temp))  ..
+                    string.format('<h2>Target temp: %s C</h2>', tostring(target_temp)) ..
                     '<form method="post">' ..
-                    '    <input type="text" name="temp" value="TODO"></input>' ..
+                    '    <input type="text" name="temp" value=""></input>' ..
                     '    <input type="submit" value="Set new temp">' ..
                     '</form>' ..
                     '<h2>Thingspeak logs</h2>' ..
-                    string.format('<a href="https://thingspeak.com/channels/%d">Go to thingspeak...</a>', thingspeak_channel_id)                    
+                    string.format('<a href="https://thingspeak.com/channels/%d">Go to thingspeak...</a>', thingspeak_channel_id)
             end
             client:send(buf)
             client:close()

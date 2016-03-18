@@ -1,20 +1,21 @@
+net.dns.setdnsserver('8.8.8.8', 0)
+net.dns.setdnsserver('4.4.4.4', 1)
+
 function thingspeak_write(key, target_temp, current_temp, cooling_on)
-    net.dns.resolve('api.thingspeak.com', function(ip)
+    print('updating thingspeak')
+    net.dns.resolve('api.thingspeak.com', function(_, ip)
         if not ip then
-            print('thingspeak: cannot lookup api.thingspeak.com')
+            print('cannot lookup api.thingspeak.com')
             return
         end
-
-        local logged_target_temp = tostring(target_temp or 0)
-        local logged_current_temp = tostring(current_temp or 0)
-        local logged_cooling_on = tostring(fif(cooling_on, 1, 0))
-        local url = string.format('https://%s/update?key=%s' .. ip .. '/update?' ..
-            'key=' .. key ..
-            '&target_temp=' .. logged_target_temp ..
-            '&current_temp=' .. logged_current_temp ..
-            '&cooling_on=' .. logged_cooling_on)
+        local url = string.format('https://%s/update?key=%s&field1=%s&field2=%s&field3=%s',
+                                  ip,
+                                  key,
+                                  tostring(target_temp or 0),
+                                  tostring(current_temp or 0),
+                                  tostring(fif(cooling_on, 1, 0)))
         http.get(url, {}, function(code, response)
-            print('thingspeak result: ' .. tostring(code) .. ' --- ' .. tostring(response))
+            print('thingspeak update response: ' .. tostring(code) .. ' --- ' .. tostring(response))
         end)
     end)
 end

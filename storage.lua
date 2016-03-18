@@ -1,6 +1,6 @@
 file_name = 'target_temp'
 
-function get_target_temp()
+function read_target_temp()
     if file.open(file_name, 'r') then
         temp = file.readline()
         file.close()
@@ -10,7 +10,7 @@ function get_target_temp()
     end
 end
 
-function set_target_temp(temp)
+function save_target_temp(temp)
     file.open(file_name, 'w+')
     file.writeline(tostring(temp))
     file.close()
