@@ -34,6 +34,9 @@ function restart_http_server()
                     '    <input type="submit" value="Set new temp">' ..
                     '</form>' ..
                     '<h2>Thingspeak logs</h2>' ..
+                    '<iframe width="600" height="260" style="border: none;" src="https://thingspeak.com/channels/' .. tostring(thingspeak_channel_id) .. '/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line"></iframe><br />' ..
+                    '<iframe width="600" height="260" style="border: none;" src="https://thingspeak.com/channels/' .. tostring(thingspeak_channel_id) .. '/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line"></iframe><br />' ..
+                    '<iframe width="600" height="260" style="border: none;" src="https://thingspeak.com/channels/' .. tostring(thingspeak_channel_id) .. '/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line"></iframe><br />' ..
                     string.format('<a href="https://thingspeak.com/channels/%d">Go to thingspeak...</a>', thingspeak_channel_id)
             end
             client:send(buf)
