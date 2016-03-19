@@ -41,6 +41,7 @@ function main()
     wifi.sta.eventMonStart(1000)
 
     -- init wifi
+    wifi.sta.sethostname('ferm-chamber')
     wifi.setmode(wifi.STATION)
     local autoconnect = 1
     wifi.sta.config(wifi_ssid, wifi_password, autoconnect)
