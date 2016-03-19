@@ -4,6 +4,7 @@ function restart_http_server()
     if srv then
         srv:close()
     end
+    mdns.register("ferm_chamber", "http", 80, { hardware='NodeMCU'})
     srv = net.createServer(net.TCP)
     srv:listen(80, function(conn)
         conn:on("receive", function(client,request)
