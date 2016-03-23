@@ -46,6 +46,10 @@ Every 30 seconds, it takes a temp reading. It enables/disables the cooling based
 
 It also runs a HTTP server for setting the target temperature.
 
+# BUGS
+
+- if the wifi goes away, the main loop stops (?)
+
 # TODO
 
 - don't lose thingspeak data if there is no wifi
